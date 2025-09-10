@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:notes/screens/constants.dart';
 import 'package:notes/screens/flashcardnotes/sub.dart';
 import 'package:notes/screens/logo.dart';
 import 'package:notes/screens/topbar.dart';
@@ -78,7 +79,7 @@ class _FlashcardsScreenState extends State<FlashcardsScreen> {
 
   Future<void> _fetchAndProcessFlashcards() async {
     try {
-      final url = Uri.parse("http://127.0.0.1:8000/api/flashcards/");
+      final url = Uri.parse("${API}flashcards/");
       final response = await http.get(url).timeout(const Duration(seconds: 15));
 
       if (!mounted) return;

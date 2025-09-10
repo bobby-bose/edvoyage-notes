@@ -68,8 +68,8 @@ class _VideosBySubjectScreenState extends State<VideosBySubjectScreen> {
 
       if (response.statusCode == 200) {
         final List<dynamic> data = jsonDecode(response.body);
-
-        // Filter videos by the passed subjectName
+        print(data);
+        // Flter videos by the passed subjectName
         final filteredVideos = data
             .map((json) => Video.fromJson(json))
             .where((video) => video.subjectName == widget.subjectName)

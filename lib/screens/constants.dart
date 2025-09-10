@@ -1,1 +1,1 @@
-const String API = 'http://127.0.0.1:8000/api/';
+const String API = 'https://edvoyagebackend.pythonanywhere.com/api/';
