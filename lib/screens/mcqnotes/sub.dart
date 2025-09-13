@@ -138,122 +138,127 @@ class _McqModulesScreenState extends State<McqModulesScreen> {
     return Column(
       children: [
         Topbar(firstText: "MCQ", secondText: widget.subjectName),
-        ListView.builder(
-          padding: const EdgeInsets.all(8.0),
-          itemCount: _filteredModules.length,
-          itemBuilder: (context, index) {
-            final module = _filteredModules[index];
-            return Card(
-              elevation: 3,
-              margin: const EdgeInsets.symmetric(
-                vertical: 8.0,
-                horizontal: 4.0,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-                side: BorderSide(color: Colors.grey.shade300, width: 1),
-              ),
-              clipBehavior: Clip
-                  .antiAlias, // Ensures the InkWell ripple respects the border radius
-              child: InkWell(
-                onTap: () {
-                  // TODO: Navigate to the quiz screen for this module
-                  // debugPrint("Tapped on module ID: ${module.id}");
-                  // code to navigate to the flutetr widget adn pass a parameter
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          QuizScreen(moduleTitle: module.title),
-                    ),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Row(
-                    children: [
-                      // 1. Left Side: Image
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: SizedBox(
-                          width: 100,
-                          height: 100,
-                          child: Image.network(
-                            module.logoUrl,
-                            fit: BoxFit.cover,
-                            // Placeholder while loading
-                            loadingBuilder: (context, child, loadingProgress) {
-                              if (loadingProgress == null) return child;
-                              return const Center(
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2.0,
-                                ),
-                              );
-                            },
-                            // Placeholder for errors
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                color: Colors.grey.shade200,
-                                child: const Icon(
-                                  Icons.school,
-                                  color: Colors.grey,
-                                ),
-                              );
-                            },
+        Expanded(
+          child: ListView.builder(
+            padding: const EdgeInsets.all(8.0),
+            itemCount: _filteredModules.length,
+            itemBuilder: (context, index) {
+              final module = _filteredModules[index];
+              return Card(
+                elevation: 3,
+                margin: const EdgeInsets.symmetric(
+                  vertical: 8.0,
+                  horizontal: 4.0,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  side: BorderSide(color: Colors.grey.shade300, width: 1),
+                ),
+                clipBehavior: Clip
+                    .antiAlias, // Ensures the InkWell ripple respects the border radius
+                child: InkWell(
+                  onTap: () {
+                    // TODO: Navigate to the quiz screen for this module
+                    // debugPrint("Tapped on module ID: ${module.id}");
+                    // code to navigate to the flutetr widget adn pass a parameter
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            QuizScreen(moduleTitle: module.title),
+                      ),
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Row(
+                      children: [
+                        // 1. Left Side: Image
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: SizedBox(
+                            width: 100,
+                            height: 100,
+                            child: Image.network(
+                              module.logoUrl,
+                              fit: BoxFit.cover,
+                              // Placeholder while loading
+                              loadingBuilder:
+                                  (context, child, loadingProgress) {
+                                    if (loadingProgress == null) return child;
+                                    return const Center(
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2.0,
+                                      ),
+                                    );
+                                  },
+                              // Placeholder for errors
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  color: Colors.grey.shade200,
+                                  child: const Icon(
+                                    Icons.school,
+                                    color: Colors.grey,
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 16),
+                        const SizedBox(width: 16),
 
-                      // 2. Middle Section: Title and Subtitle
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              module.title,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25,
-                                color: Color(0xFF008080), // Teal color
+                        // 2. Middle Section: Title and Subtitle
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                module.title,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 25,
+                                  color: Color(0xFF008080), // Teal color
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 8),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.timer_outlined,
-                                  color: Colors.grey.shade600,
-                                  size: 22,
-                                ),
-                                const SizedBox(width: 4),
-                                Text(
-                                  "${module.questionCount} MCQ's",
-                                  style: TextStyle(
-                                    color: Colors.grey.shade700,
-                                    fontSize: 22,
+                              const SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.timer_outlined,
+                                    color: Colors.grey.shade600,
+                                    size: 22,
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    "${module.questionCount} MCQ's",
+                                    style: TextStyle(
+                                      color: Colors.grey.shade700,
+                                      fontSize: 22,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 8),
+                        const SizedBox(width: 8),
 
-                      // 3. Right Side: Free/Locked Status
-                      // 3. Right Side: Crown or Lock image from assets
-                      Image.asset(
-                        module.isFree ? 'assets/crown.png' : 'assets/lock.png',
-                        width: 40,
-                        height: 40,
-                      ),
-                    ],
+                        // 3. Right Side: Free/Locked Status
+                        // 3. Right Side: Crown or Lock image from assets
+                        Image.asset(
+                          module.isFree
+                              ? 'assets/crown.png'
+                              : 'assets/lock.png',
+                          width: 40,
+                          height: 40,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ],
     );

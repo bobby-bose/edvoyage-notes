@@ -13,7 +13,7 @@ class QBankScreen extends StatefulWidget {
 
 class _QBankScreenState extends State<QBankScreen> {
   late Future<List<Map<String, dynamic>>> modulesFuture;
-  int _selectedIndex = 3; // Notes tab is active
+  final int _selectedIndex = 3; // Notes tab is active
 
   @override
   void initState() {

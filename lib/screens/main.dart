@@ -10,21 +10,22 @@ import 'package:notes/screens/videonotes/main.dart';
 import 'package:notes/widgets/explore_courses/app_bar.dart';
 
 class NotesScreen extends StatefulWidget {
-  const NotesScreen({super.key});
+  final String className;
+  const NotesScreen({super.key, required this.className});
 
   @override
   State<NotesScreen> createState() => _NotesScreenState();
 }
 
 class _NotesScreenState extends State<NotesScreen> {
-  bool _isLoading = false;
+  final bool _isLoading = false;
   int _VideoTotalCount = 0;
   int _VideoUniqueCount = 0;
   int _mcqCount = 0;
   int _mcqSubjectCount = 0;
-  int _clinicalCaseCount = 0;
-  int _flashcardTotalCount = 0;
-  int _flashcardUniqueCount = 0;
+  final int _clinicalCaseCount = 0;
+  final int _flashcardTotalCount = 0;
+  final int _flashcardUniqueCount = 0;
   int _clinicalUniqueCount = 0;
   int _clinicalTotalCount = 0;
   int _flashCardUniqueCount = 0;
@@ -155,57 +156,59 @@ class _NotesScreenState extends State<NotesScreen> {
       child: Scaffold(
         backgroundColor: Colors.grey[100],
         appBar: CustomLogoAppBar(),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 16),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 16),
 
-              // Video Card
-              NoteCard(
-                title: 'Video',
-                leftSubtitle: _isLoading
-                    ? 'Loading...'
-                    : '$_VideoUniqueCount Topics',
-                rightSubtitle: _isLoading ? '' : '$_VideoTotalCount Videos',
-                navigateTo: const VideoSubjectScreen(),
-              ),
+                // Video Card
+                NoteCard(
+                  title: 'Video',
+                  leftSubtitle: _isLoading
+                      ? 'Loading...'
+                      : '$_VideoUniqueCount Topics',
+                  rightSubtitle: _isLoading ? '' : '$_VideoTotalCount Videos',
+                  navigateTo: const VideoSubjectScreen(),
+                ),
 
-              // MCQ Card
-              NoteCard(
-                title: 'MCQs',
-                leftSubtitle: _isLoading
-                    ? 'Loading...'
-                    : '$_mcqSubjectCount Topics',
-                rightSubtitle: _isLoading ? '' : '$_mcqCount MCQs',
-                navigateTo: const McqSubjectsScreen(),
-              ),
+                // MCQ Card
+                NoteCard(
+                  title: 'MCQs',
+                  leftSubtitle: _isLoading
+                      ? 'Loading...'
+                      : '$_mcqSubjectCount Topics',
+                  rightSubtitle: _isLoading ? '' : '$_mcqCount MCQs',
+                  navigateTo: const McqSubjectsScreen(),
+                ),
 
-              // Clinical Case Card
-              NoteCard(
-                title: 'Clinical Case',
-                leftSubtitle: _isLoading
-                    ? 'Loading...'
-                    : '$_clinicalUniqueCount Topics',
-                rightSubtitle: _isLoading
-                    ? ''
-                    : '$_clinicalTotalCount Clinical Cases',
-                navigateTo: const ClinicalCasesScreen(),
-              ),
+                // Clinical Case Card
+                NoteCard(
+                  title: 'Clinical Case',
+                  leftSubtitle: _isLoading
+                      ? 'Loading...'
+                      : '$_clinicalUniqueCount Topics',
+                  rightSubtitle: _isLoading
+                      ? ''
+                      : '$_clinicalTotalCount Clinical Cases',
+                  navigateTo: const ClinicalCasesScreen(),
+                ),
 
-              // Flash Card
-              NoteCard(
-                title: 'Flash Card',
-                leftSubtitle: _isLoading
-                    ? 'Loading...'
-                    : '$_flashCardUniqueCount Topics',
-                rightSubtitle: _isLoading
-                    ? ''
-                    : '$_flashCardTotalCount Flash Cards',
-                navigateTo: const FlashcardsScreen(),
-              ),
-            ],
+                // Flash Card
+                NoteCard(
+                  title: 'Flash Card',
+                  leftSubtitle: _isLoading
+                      ? 'Loading...'
+                      : '$_flashCardUniqueCount Topics',
+                  rightSubtitle: _isLoading
+                      ? ''
+                      : '$_flashCardTotalCount Flash Cards',
+                  navigateTo: const FlashcardsScreen(),
+                ),
+              ],
+            ),
           ),
         ),
       ),

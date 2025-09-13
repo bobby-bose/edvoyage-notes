@@ -145,7 +145,7 @@ class _McqSubjectsScreenState extends State<McqSubjectsScreen> {
                                       ),
                                     ),
                                     Text(
-                                      "${subject.moduleCount} Videos",
+                                      "${subject.moduleCount} MCQs",
                                       style: const TextStyle(
                                         color: Colors.grey,
                                       ),

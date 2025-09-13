@@ -8,13 +8,14 @@ plugins {
 android {
     namespace = "com.example.notes"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
-    namespace ="com.pichillilorenzo.flutter_inappwebview"
+    ndkVersion = "27.0.12077973"
+
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
@@ -25,7 +26,7 @@ android {
         applicationId = "com.example.notes"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+        minSdk = 24
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName

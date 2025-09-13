@@ -1,0 +1,3 @@
+proxies:
+  - from: /api/
+    to: https://edvoyagebackend.pythonanywhere.com/api/

@@ -213,7 +213,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       final optionLabel =
                           '${String.fromCharCode(65 + optionIndex)} - ';
                       return _buildOption(index, option, optionLabel);
-                    }).toList(),
+                    }),
                   ],
                 ),
               );

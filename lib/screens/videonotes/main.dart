@@ -7,7 +7,6 @@ import 'package:notes/screens/topbar.dart';
 import 'package:notes/screens/videonotes/sub.dart'; // VideoTopicsScreen
 import 'package:notes/utils/colors/colors.dart';
 import 'package:notes/utils/responsive.dart';
-import 'package:notes/utils/colors/colors.dart';
 
 // Data model for a Subject
 class Subject {

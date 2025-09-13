@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:notes/screens/constants.dart';
 import 'package:notes/screens/logo.dart';
 import 'package:notes/screens/topbar.dart';
-import 'package:notes/screens/videonotes/video_player.dart';
 
 // --- DATA MODEL for Video ---
 class Video {

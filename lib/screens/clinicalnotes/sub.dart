@@ -198,7 +198,7 @@ class _ClinicalCaseDetailScreenState extends State<ClinicalCaseDetailScreen> {
           title: const Text(
             'Table of contents',
             style: TextStyle(
-              color: const Color(0xFF037E73),
+              color: Color(0xFF037E73),
               fontWeight: FontWeight.w600,
               fontSize: 25,
             ),
@@ -255,7 +255,7 @@ class _ClinicalCaseDetailScreenState extends State<ClinicalCaseDetailScreen> {
           title: Text(
             title,
             style: const TextStyle(
-              color: const Color(0xFF037E73),
+              color: Color(0xFF037E73),
               fontWeight: FontWeight.w600,
               fontSize: 22,
             ),
