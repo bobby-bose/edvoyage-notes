@@ -26,7 +26,7 @@ class _NotesScreenState extends State<NotesScreen> {
   final int _clinicalCaseCount = 0;
   final int _flashcardTotalCount = 0;
   final int _flashcardUniqueCount = 0;
-  int _clinicalUniqueCount = 0;
+  int _subjectNamesCount = 0;
   int _clinicalTotalCount = 0;
   int _flashCardUniqueCount = 0;
   int _flashCardTotalCount = 0;
@@ -49,18 +49,29 @@ class _NotesScreenState extends State<NotesScreen> {
 
         int titleCount = data.length;
 
-        int VideoCount = data
+        int count = 0;
+
+        var SubjectNames = data
+            .where((video) => video['category']["name"] == widget.className)
             .map((video) => video['subject_name'])
-            .toSet()
-            .length;
+            .toList()
+            .toSet();
 
-        int FullCount = data.length;
+        var VideoUrls = data
+            .where((video) => video['category']["name"] == widget.className)
+            .map((video) => video['video_url'])
+            .toList();
 
-        var count = 0;
+        print("The Video Urls are $VideoUrls");
+        print("The Subject Names are $SubjectNames");
+        int VideoUrlsCount = VideoUrls.length;
+        int SubjectNamesCount = SubjectNames.length;
+        print("The Video Urls Count is $VideoUrlsCount");
+        print("The Subject Names Count is $SubjectNamesCount");
 
         setState(() {
-          _VideoUniqueCount = VideoCount;
-          _VideoTotalCount = FullCount;
+          _VideoUniqueCount = SubjectNamesCount;
+          _VideoTotalCount = VideoUrlsCount;
         });
       } else {
         print("Failed to load data. Status: ${response.statusCode}");
@@ -79,19 +90,34 @@ class _NotesScreenState extends State<NotesScreen> {
 
         int titleCount = data.length;
 
-        int uniquesubjectCount = data
-            .map((mcq) => mcq['subject']?['name'])
-            .where((name) => name != null)
-            .toSet()
-            .length;
+        int count = 0;
 
-        int totaluniqueCount = data.length;
+        var SubjectNames = data
+            .where((video) => video['category']["name"] == widget.className)
+            .map((video) => video['subject']['name'])
+            .toList()
+            .toSet();
 
-        var count = 0;
+        var McqQuestions = data
+            .where(
+              (video) =>
+                  video['category']["name"] == widget.className &&
+                  video['questions'] != null &&
+                  (video['questions'] as List).isNotEmpty,
+            )
+            .map((video) => video['questions'])
+            .toList();
+
+        print("The MCQ Questions are $McqQuestions");
+        print("The Subject Names are $SubjectNames");
+        int McqQuestionsCount = McqQuestions.length;
+        int SubjectNamesCount = SubjectNames.length;
+        print("The McQ Count is $McqQuestionsCount");
+        print("The Subject Names Count is $SubjectNamesCount");
 
         setState(() {
-          _mcqCount = uniquesubjectCount;
-          _mcqSubjectCount = totaluniqueCount;
+          _mcqCount = McqQuestionsCount;
+          _mcqSubjectCount = SubjectNamesCount;
         });
       } else {
         print("Failed to load data. Status: ${response.statusCode}");
@@ -107,16 +133,29 @@ class _NotesScreenState extends State<NotesScreen> {
       if (response.statusCode == 200) {
         final List<dynamic> data = jsonDecode(response.body);
 
-        int uniquesubjectCount = data
-            .map((mcq) => mcq['subject'])
-            .toSet()
-            .length;
+        int titleCount = data.length;
 
-        int totalCount = data.length;
+        int count = 0;
 
+        var SubjectNames = data
+            .where((video) => video['category']["name"] == widget.className)
+            .map((video) => video['subject_name'])
+            .toList()
+            .toSet();
+
+        var clinicalCases = data
+            .where((video) => video['category']["name"] == widget.className)
+            .toList();
+
+        print("The Clinical Cases  are $clinicalCases");
+        print("The Subject Names are $SubjectNames");
+        int clinicalCasesCount = clinicalCases.length;
+        int SubjectNamesCount = SubjectNames.length;
+        print("The clinicalCasesCount Count is $clinicalCasesCount");
+        print("The Subject Names Count is $SubjectNamesCount");
         setState(() {
-          _clinicalUniqueCount = uniquesubjectCount;
-          _clinicalTotalCount = totalCount;
+          _subjectNamesCount = SubjectNamesCount;
+          _clinicalTotalCount = clinicalCasesCount;
         });
       }
     } catch (e) {
@@ -129,13 +168,30 @@ class _NotesScreenState extends State<NotesScreen> {
       final response = await http.get(Uri.parse("${API}flashcards/"));
       if (response.statusCode == 200) {
         final List<dynamic> data = jsonDecode(response.body);
-        int uniqueCount = data.map((mcq) => mcq['subject_name']).toSet().length;
+        int titleCount = data.length;
 
-        int totalCount = data.length;
+        int count = 0;
+
+        var SubjectNames = data
+            .where((video) => video['category']["name"] == widget.className)
+            .map((video) => video['subject_name'])
+            .toList()
+            .toSet();
+
+        var flashCards = data
+            .where((video) => video['category']["name"] == widget.className)
+            .toList();
+
+        print("The Flash Cards are $flashCards");
+        print("The Subject Names are $SubjectNames");
+        int flashCardsCount = flashCards.length;
+        int SubjectNamesCount = SubjectNames.length;
+        print("The FlashcardCount Count is $flashCardsCount");
+        print("The Subject Names Count is $SubjectNamesCount");
 
         setState(() {
-          _flashCardUniqueCount = uniqueCount;
-          _flashCardTotalCount = totalCount;
+          _flashCardUniqueCount = SubjectNamesCount;
+          _flashCardTotalCount = flashCardsCount;
         });
       }
     } catch (e) {
@@ -169,7 +225,7 @@ class _NotesScreenState extends State<NotesScreen> {
                   title: 'Video',
                   leftSubtitle: _isLoading
                       ? 'Loading...'
-                      : '$_VideoUniqueCount Topics',
+                      : '$_VideoUniqueCount Subjects',
                   rightSubtitle: _isLoading ? '' : '$_VideoTotalCount Videos',
                   navigateTo: const VideoSubjectScreen(),
                 ),
@@ -189,7 +245,7 @@ class _NotesScreenState extends State<NotesScreen> {
                   title: 'Clinical Case',
                   leftSubtitle: _isLoading
                       ? 'Loading...'
-                      : '$_clinicalUniqueCount Topics',
+                      : '$_subjectNamesCount Subjects',
                   rightSubtitle: _isLoading
                       ? ''
                       : '$_clinicalTotalCount Clinical Cases',
@@ -201,7 +257,7 @@ class _NotesScreenState extends State<NotesScreen> {
                   title: 'Flash Card',
                   leftSubtitle: _isLoading
                       ? 'Loading...'
-                      : '$_flashCardUniqueCount Topics',
+                      : '$_flashCardUniqueCount Subjects',
                   rightSubtitle: _isLoading
                       ? ''
                       : '$_flashCardTotalCount Flash Cards',

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:notes/screens/constants.dart';
 import 'package:notes/screens/logo.dart';
+import 'package:notes/screens/main.dart';
 import 'package:notes/screens/topbar.dart';
 import 'package:notes/screens/videonotes/sub.dart'; // VideoTopicsScreen
 import 'package:notes/utils/colors/colors.dart';
@@ -71,7 +72,7 @@ class _VideoSubjectScreenState extends State<VideoSubjectScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => NotesScreen(subjectName: category.name),
+            builder: (context) => NotesScreen(className: category.name),
           ),
         );
       },
